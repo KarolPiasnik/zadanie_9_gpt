@@ -3,6 +3,7 @@ import openai
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
+from fastapi.middleware.cors import CORSMiddleware
 
 class Settings(BaseSettings):
     OPENAI_API_KEY: str = 'YOUR_OPENAI_API_KEY'
@@ -17,6 +18,18 @@ class Prompt(BaseModel):
     text: str
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5555"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/chat")
 async def getChat():
