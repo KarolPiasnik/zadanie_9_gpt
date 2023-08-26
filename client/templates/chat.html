@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat GPT app for ebiznes course</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #chatbox {
+            padding-bottom: 10%;
+            padding-left: 25px;
+            padding-top: 25px;
+            max-height: 80%;
+            overflow: auto;
+        }
+
+        #inputForm input {
+            width: 80%;
+            padding-right: 25px;
+        }
+
+        #inputForm {
+            position: absolute;
+            top: 90%;
+            left: 25%;
+            width: 50%;
+        }
+
+        #inputForm button {
+            position: absolute;
+            width: 20%;
+            left: 90%;
+        }
+
+    </style>
+    <script>
+        $(document).ready(() => {
+            $("#inputForm").on("submit", (e) => {
+                e.preventDefault();
+                let messages = $("#chatbox");
+                let message = $("input").val();
+                let messageContent = "<span> " + message + "</span>";
+                messages.append(messageContent);
+
+                messages.append
+                $.post({
+                    type: "POST",
+                    url: "http://localhost:8000/chat",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ "text": message }),
+                    success: (data) => {
+                        let answerContent = "<br/><span><strong><em> " + data.answer + "</em></strong></span>";
+                        messages.append(answerContent)
+                    }
+                });
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center"> Chat GTP app for ebiznes </h3>
+            <hr>
+            <div id="chatbox"></div>
+            <form id="inputForm" class="form-inline" >
+                <input type="text" class="form-control" placeholder="Ask chat a question">
+                <button type="submit" class="btn btn-primary">Ask chat GPT a question</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
