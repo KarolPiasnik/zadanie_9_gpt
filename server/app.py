@@ -1,7 +1,7 @@
 import openai
 
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 from fastapi.middleware.cors import CORSMiddleware
 

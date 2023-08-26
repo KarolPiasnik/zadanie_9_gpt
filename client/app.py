@@ -23,6 +23,3 @@ def get_home(request: Request):
 @app.websocket("/chat")
 async def get_user(prompt: Prompt):
     return httpx.post('http://localhost:8000', data={'text': prompt.text})
-
-
-
